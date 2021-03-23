@@ -1,9 +1,10 @@
 # 由于hulisang大佬已经把仓库删除，本人仅做备份
 下面是hulisang的原话：
 
-感恩原作者rico辛苦付出 
-感谢missuo的说明与改动
-caddy镜像更新支持tls1.3
+感恩原作者rico辛苦付出  
+感谢missuo的说明与改动  
+caddy镜像更新支持tls1.3  
+
 
 # v2ray-sspanel-v3-mod_Uim-plugin
 
