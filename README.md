@@ -1,11 +1,101 @@
 # 由于hulisang大佬已经把仓库删除，本人仅做备份
 下面是hulisang的原话：
 
-感恩原作者rico辛苦付出
-本人仅做备份和后续维护
+感恩原作者rico辛苦付出 
+感谢missuo的说明与改动
 caddy镜像更新支持tls1.3
 
 # v2ray-sspanel-v3-mod_Uim-plugin
+
+此教程为免费版本的SSPanel-V3-Mod-UIM的V2Ray后端 不限制用户数 可以放心食用
+# Docker版 WS 中转的 食用方法
+~~~
+Written By monstarvincent
+~~~
+1.安装BBR PLUS
+~~~
+wget -N --no-check-certificate "https://stern.codes/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+~~~
+重启之后请手动启动BBR PLUS加速
+
+2.安装Docker并且启动Docker
+~~~
+curl -fsSL https://get.docker.com | bash
+curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod a+x /usr/local/bin/docker-compose
+rm -f `which dc` 
+ln -s /usr/local/bin/docker-compose /usr/bin/dc
+systemctl start docker
+service docker start
+systemctl enable docker.service
+systemctl status docker.service
+~~~
+
+3.下载本仓库，并且修改配置文件
+~~~
+yum -y install git nano
+git clone https://github.com/monstarvincent/sspanel-v2ray.git
+cd sspanel-v2ray/Docker/V2ray
+nano docker-compose.yml
+~~~
+配置文件修改如下：
+~~~
+version: '2'
+
+services:
+ v2ray:
+    image: ephz3nt/v2ray_v3:go
+    restart: always
+    network_mode: "host"
+    environment:
+      sspanel_url: "https://xxxx" //你的面板的地址
+      key: "xxxx" //你的面板的key（默认为NimaQu）
+      speedtest: 6 //代表六小时执行一次延迟测试
+      node_id: 10 //对应节点的ID
+      api_port: 2333 //V2Ray API端口（默认即可）
+      downWithPanel: 1 //不用修改
+      TZ: "Asia/Shanghai" //时区为中国上海 不用修改
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+~~~
+
+4.添加一个新节点
+节点地址格式如下：
+~~~
+你的服务器IP或域名;8080;16;ws;;path=/|host=你的服务器IP或域名
+//8080为连接端口 不能和API端口2333一致 一般是用8080或80
+~~~
+节点IP复制节点地址的内容即可
+
+5.完成这些操作后，可以启动docker了
+~~~
+cd /sspanel-v2ray/Docker/V2ray/
+dc up -d
+dc logs
+//如果没有报错，表示已经启动成功，如果端口被占用，请自行更换端口
+~~~
+
+5.关于中转，只要修改节点地址即可
+~~~
+你的服务器IP或域名;8080;16;ws;;path=/|host=你的服务器IP或域名|relayserver=中转地址|outside_port=中转端口
+~~~
+
+6.到此，又一个万人机场诞生了
+
+
+
+
+
+
+
+
+
+## 下面为原作者的内容 与本人无关
+
 
 
 ## Thanks
